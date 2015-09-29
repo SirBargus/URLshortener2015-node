@@ -1,6 +1,7 @@
 //urlshortener.js
 
-var db = require('../models/simple.js');
+var clickdb = require('../models/clickDB.js');
+var shortdb = require('../models/shortUrlDB.js');
 var validUrl = require('valid-url');
 
 module.exports = function(app){
@@ -17,13 +18,14 @@ module.exports = function(app){
         
     //post
     app.post('/link', function(req, res){
-        if (validUrl.isUri(req.body.url)){
-            var resDummy = {"hash": db.add(req.body.url), "target": req.body.url}
-            res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify(resDummy));
-        } else{
-            res.sendStatus(400);
-        }
+        
+        /*if (validUrl.isUri(req.body.url)){*/
+            //var resDummy = {"hash": db.add(req.body.url), "target": req.body.url}
+            //res.setHeader('Content-Type', 'application/json');
+            //res.send(JSON.stringify(resDummy));
+        //} else{
+            //res.sendStatus(400);
+        /*}*/
     })
 }
 
