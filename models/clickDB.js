@@ -8,19 +8,16 @@ var crypto = require('crypto');
 
 var db = new alasql.Database();
 
-db.exec("CREATE TABLE click (id LONG NOT NULL AUTO_INCREMENT, hash STRING," 
+db.exec("CREATE TABLE click (hash STRING," 
     + "created DATE, referrer STRING, browser STRING, platform STRING," 
     + "ip STRING, country STRING)");
 
 module.exports = {
-    add: function(cl, url){
+    add: function(cl){
         //Create md5 hash from string
-        var hash = crypto.createHash('md5').update(url).digest("hex");
-        db.exec("INSERT INTO click (hash, created, referrer, browser, platform,"
-            + "ip, country) VALUES (?, ?, ?, ?, ?, ?, ?)", [hash,
+        db.exec("INSERT INTO click VALUES (?, ?, ?, ?, ?, ?, ?)", [cl.hash,
                 cl.created, cl.referrer, cl.browser, cl.platform,
                 cl.ip, cl.country]);
-        return hash;
     },
     findByHash: function(hash){
         return db.exec("select * from click where hash=?",[hash]);

@@ -3,7 +3,6 @@
 //shortUrl Database
 
 var alasql = require('alasql');
-var crypto = require('crypto');
 
 var db = new alasql.Database();
 
@@ -12,13 +11,12 @@ db.exec("CREATE TABLE shorturl (hash STRING, target_ STRING, sponsor STRING,"
     + "country STRING)");
 
 module.exports = {
-    add: function(su, url){
+    add: function(su){
         //Create md5 hash from string
-        var hash = crypto.createHash('md5').update(url).digest("hex");
-        db.exec("INSERT INTO shorturl VALUES (?, ?, ?, ?, ?, ?, ?)", [hash,
+        db.exec("INSERT INTO shorturl VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [su.hash,
                 su.target, su.sponsor, su.created, su.owner, su.momde, su.safe,
                 su.ip, su.country]);
-        return hash;
+        return su.hash;
     },
     findByHash: function(hash){
         return db.exec("select * from shorturl where hash=?",[hash]);

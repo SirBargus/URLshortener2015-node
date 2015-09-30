@@ -8,6 +8,7 @@
         "body-parser": "1.14.1",
         "alasql": "0.2.0",
         "crypto": "0.0.3",
-        "valid-url": "1.0.9"
+        "valid-url": "1.0.9",
+        "http-status": "0.2.0"
     }
 }
